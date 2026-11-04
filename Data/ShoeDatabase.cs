@@ -35,7 +35,13 @@ public sealed class ShoeDatabase
 
     public ShoeDatabase()
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(DatabasePath)!);
+        var directory = Path.GetDirectoryName(DatabasePath);
+        if (!string.IsNullOrEmpty(directory))
+            Directory.CreateDirectory(directory);
+
+        if (!File.Exists(DatabasePath) && File.Exists(LegacyDatabasePath))
+            File.Copy(LegacyDatabasePath, DatabasePath);
+
         using var connection = Open();
         using var command = connection.CreateCommand();
         command.CommandText = Schema;
@@ -46,6 +52,10 @@ public sealed class ShoeDatabase
     }
 
     public string DatabasePath { get; } = Path.Combine(
+        Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory,
+        "sportswear.db");
+
+    private static readonly string LegacyDatabasePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Sportswear",
         "sportswear.db");
