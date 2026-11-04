@@ -1,0 +1,106 @@
+<sw:SportWindow x:Class="Sportswear.Views.ShoeEditorWindow"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:sw="clr-namespace:Sportswear"
+               Title="跑鞋"
+               Width="500"
+               SizeToContent="Height"
+               WindowStartupLocation="CenterOwner"
+               ResizeMode="NoResize"
+               ShowInTaskbar="False"
+               Background="{StaticResource PanelBrush}"
+               Foreground="{StaticResource TextBrush}"
+               FontFamily="Microsoft YaHei UI"
+               FontSize="14"
+               UseLayoutRounding="True"
+               SnapsToDevicePixels="True">
+    <StackPanel Margin="28,22,28,24">
+        <TextBlock x:Name="TitleText" FontSize="22" FontWeight="Bold"/>
+        <TextBlock Text="名称用来区分鞋，建议寿命用来估算更换时机。"
+                   Margin="0,6,0,18"
+                   Foreground="{StaticResource MutedBrush}"
+                   FontSize="13"
+                   TextWrapping="Wrap"/>
+
+        <TextBlock Text="名称" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="NameBox" Style="{StaticResource SportField}" Height="42" MaxLength="40"/>
+
+        <Grid Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="品牌" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="BrandBox" Style="{StaticResource SportField}" Height="42" MaxLength="40"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="型号" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="ModelBox" Style="{StaticResource SportField}" Height="42" MaxLength="40"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="配色" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="ColorBox" Style="{StaticResource SportField}" Height="42" MaxLength="40"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="购买日期" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PurchaseBox" Style="{StaticResource SportField}" Height="42" MaxLength="20" ToolTip="例如 2026-11-04，可以留空"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="记录前已跑 (km)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="InitialBox" Style="{StaticResource SportField}" Height="42" MaxLength="10"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="建议更换 (km)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="RetireBox" Style="{StaticResource SportField}" Height="42" MaxLength="10"/>
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="开始用这个软件之前已经跑过的距离填在左边。公路鞋常见寿命大约 600–800 公里。"
+                   Margin="2,6,0,0"
+                   FontSize="12"
+                   Foreground="{StaticResource FaintBrush}"
+                   TextWrapping="Wrap"/>
+
+        <StackPanel Margin="0,14,0,0">
+            <TextBlock Text="备注" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="NotesBox"
+                     Style="{StaticResource SportField}"
+                     Height="88"
+                     VerticalContentAlignment="Top"
+                     Padding="12,10"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     MaxLength="500"/>
+        </StackPanel>
+
+        <CheckBox x:Name="RetiredBox" Content="这双鞋已经退役" Style="{StaticResource SportCheck}" Margin="2,14,0,0"/>
+
+        <TextBlock x:Name="ErrorText"
+                   Margin="2,12,0,0"
+                   Foreground="{StaticResource DangerBrush}"
+                   TextWrapping="Wrap"
+                   Visibility="Collapsed"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="取消" Style="{StaticResource SportGhost}" Width="96" Margin="0,0,8,0" IsCancel="True"/>
+            <Button Content="保存" Style="{StaticResource SportPrimary}" Width="120" IsDefault="True" Click="Save_Click"/>
+        </StackPanel>
+    </StackPanel>
+</sw:SportWindow>
