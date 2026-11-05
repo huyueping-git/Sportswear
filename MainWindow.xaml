@@ -148,6 +148,23 @@
                         <RadioButton Content="在役" GroupName="ShoeFilter" Tag="active" Style="{StaticResource SportChip}" Checked="Filter_Checked"/>
                         <RadioButton Content="需关注" GroupName="ShoeFilter" Tag="attention" Style="{StaticResource SportChip}" Checked="Filter_Checked"/>
                     </StackPanel>
+                    <ComboBox x:Name="RunShoeBox"
+                              Grid.Column="2"
+                              Width="240"
+                              Height="36"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Center"
+                              Style="{StaticResource SportCombo}"
+                              ItemsSource="{Binding RunShoeOptions}"
+                              ToolTip="按跑鞋筛选里程记录"
+                              SelectionChanged="RunShoeBox_SelectionChanged"
+                              Visibility="{Binding ShowRunShoeFilter, Converter={StaticResource BoolVis}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PickerLabel}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
 
                 <Border Grid.Row="1"
@@ -242,7 +259,7 @@
                                  ItemsSource="{Binding AllRuns}"
                                  Style="{StaticResource SportRunList}"
                                  ItemContainerStyle="{StaticResource SportRunItem}"
-                                 Visibility="{Binding HasAnyRuns, Converter={StaticResource BoolVis}}"
+                                 Visibility="{Binding ShowLogList, Converter={StaticResource BoolVis}}"
                                  SelectionChanged="LogList_SelectionChanged"
                                  MouseDoubleClick="LogList_MouseDoubleClick"
                                  KeyDown="RunList_KeyDown">
@@ -289,6 +306,18 @@
                                     Visibility="{Binding HasAnyRuns, Converter={StaticResource InvBoolVis}}">
                             <TextBlock Text="还没有里程记录" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
                             <TextBlock Text="记下一趟跑步后，日期、距离、天气和开跑时间都会出现在这里。"
+                                       Foreground="{StaticResource MutedBrush}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="320"
+                                       Margin="0,8,0,0"/>
+                            <Button Content="记录里程" Style="{StaticResource SportPrimary}" Width="140" Margin="0,18,0,0" Click="AddRun_Click" HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24"
+                                    Visibility="{Binding ShowLogFilterEmpty, Converter={StaticResource BoolVis}}">
+                            <TextBlock Text="这双鞋还没有里程" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="换一双鞋，或记下一趟跑步。记录会按上面选择的跑鞋筛选。"
                                        Foreground="{StaticResource MutedBrush}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"

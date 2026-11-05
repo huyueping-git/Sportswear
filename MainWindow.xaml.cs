@@ -53,6 +53,46 @@ public partial class MainWindow : SportWindow
         Reload();
     }
 
+    private void RunShoeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (!_ready || _sync || RunShoeBox.SelectedItem is not ShoePick pick)
+            return;
+
+        var selectedRunId = _viewModel.SelectedRun?.Id;
+        if (!_viewModel.SetRunShoeFilter(pick.Id))
+            return;
+
+        if (pick.Id != 0)
+        {
+            var shoe = _viewModel.AllShoes.FirstOrDefault(item => item.Id == pick.Id);
+            if (shoe != null)
+            {
+                _viewModel.Select(shoe, keepRun: true);
+                var card = _viewModel.Shoes.FirstOrDefault(item => item.Id == pick.Id);
+                if (card != null && !ReferenceEquals(ShoeList.SelectedItem, card))
+                {
+                    _sync = true;
+                    ShoeList.SelectedItem = card;
+                    _sync = false;
+                }
+            }
+        }
+
+        var listed = selectedRunId is long id
+            ? _viewModel.AllRuns.FirstOrDefault(run => run.Id == id)
+            : null;
+        if (listed != null)
+        {
+            FocusRun(listed.Id);
+            return;
+        }
+
+        _sync = true;
+        LogList.SelectedItem = null;
+        _sync = false;
+        _viewModel.SelectedRun = null;
+    }
+
     private void View_Checked(object sender, RoutedEventArgs e)
     {
         if (!_ready || sender is not RadioButton { IsChecked: true, Tag: string tag })
@@ -137,7 +177,10 @@ public partial class MainWindow : SportWindow
             return;
         }
 
-        var editor = new RunEditorWindow(_viewModel.AllShoes, _viewModel.Selected?.Id) { Owner = this };
+        var preferredShoeId = _viewModel.ShowRunView && _viewModel.RunShoeFilterId != 0
+            ? _viewModel.RunShoeFilterId
+            : _viewModel.Selected?.Id;
+        var editor = new RunEditorWindow(_viewModel.AllShoes, preferredShoeId) { Owner = this };
         if (editor.ShowDialog() != true || editor.Result is not RunEntry run)
             return;
 
@@ -240,11 +283,13 @@ public partial class MainWindow : SportWindow
     {
         var keep = selectId ?? _viewModel.Selected?.Id;
         var keepRun = selectRunId ?? (_viewModel.ShowRunView ? _viewModel.SelectedRun?.Id : null);
-        _viewModel.Reload();
+        _sync = true;
+        _viewModel.Reload(keepRun);
         var next = _viewModel.Shoes.FirstOrDefault(shoe => shoe.Id == keep)
                    ?? _viewModel.Shoes.FirstOrDefault();
-        _sync = true;
         ShoeList.SelectedItem = next;
+        RunShoeBox.SelectedItem = _viewModel.RunShoeOptions.FirstOrDefault(item => item.Id == _viewModel.RunShoeFilterId)
+                                  ?? _viewModel.RunShoeOptions.FirstOrDefault();
         _sync = false;
         _viewModel.Select(next);
         if (next != null)
