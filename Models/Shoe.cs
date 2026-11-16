@@ -47,6 +47,20 @@ public sealed class Shoe
 
     public string BrandText => string.IsNullOrWhiteSpace(Brand) ? "RUNNING" : Brand.ToUpper(Invariant);
 
+    public string CardTitle =>
+        string.IsNullOrWhiteSpace(Model) ? Name : $"{Name} {Model.Trim()}";
+
+    public string CardSubtitle
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(Color))
+                return Color.Trim();
+
+            return string.IsNullOrWhiteSpace(Model) ? "未填写型号" : "";
+        }
+    }
+
     public string MetaText
     {
         get

@@ -183,71 +183,71 @@
 
                 <Grid Grid.Row="2">
                     <Grid Visibility="{Binding ShowShoeView, Converter={StaticResource BoolVis}}">
-                    <ListBox x:Name="ShoeList"
+                        <ListBox x:Name="ShoeList"
                              ItemsSource="{Binding Shoes}"
                              Style="{StaticResource SportCardList}"
                              ItemContainerStyle="{StaticResource SportShoeItem}"
                              SelectionChanged="ShoeList_SelectionChanged"
                              MouseDoubleClick="ShoeList_MouseDoubleClick">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Grid>
-                                        <TextBlock Text="{Binding BrandText}" FontSize="11" FontWeight="Bold" Foreground="{StaticResource FaintBrush}"/>
-                                        <TextBlock Text="{Binding StatusText}"
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Grid>
+                                            <TextBlock Text="{Binding BrandText}" FontSize="11" FontWeight="Bold" Foreground="{StaticResource FaintBrush}"/>
+                                            <TextBlock Text="{Binding StatusText}"
                                                    HorizontalAlignment="Right"
                                                    FontSize="12"
                                                    FontWeight="SemiBold"
                                                    Foreground="{Binding Status, Converter={StaticResource StatusBrush}}"/>
-                                    </Grid>
-                                        <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"  Margin="0,8,0,0" TextTrimming="CharacterEllipsis"/>
-                                    <TextBlock Text="{Binding MetaText}" FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,3,0,0" TextTrimming="CharacterEllipsis"/>
-                                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                                        </Grid>
+                                        <TextBlock Text="{Binding CardTitle}" FontSize="18" FontWeight="Bold" Foreground="White" Margin="0,8,0,0" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding CardSubtitle}" FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,3,0,0" TextTrimming="CharacterEllipsis"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                                             <TextBlock Text="{Binding MileageText}" Foreground="White" FontFamily="Bahnschrift, Microsoft YaHei UI" FontSize="26" FontWeight="SemiBold"/>
-                                        <TextBlock Text="KM" FontSize="11" Margin="5,12,0,0" Foreground="{StaticResource MutedBrush}"/>
-                                        <TextBlock Text="{Binding PercentText}"
+                                            <TextBlock Text="KM" FontSize="11" Margin="5,12,0,0" Foreground="{StaticResource MutedBrush}"/>
+                                            <TextBlock Text="{Binding PercentText}"
                                                    Margin="12,10,0,0"
                                                    FontFamily="Bahnschrift, Microsoft YaHei UI"
                                                    FontSize="14"
                                                    Foreground="{Binding Status, Converter={StaticResource StatusBrush}}"/>
-                                    </StackPanel>
-                                    <Grid Height="8" Margin="0,10,0,0">
-                                        <Border Background="#24303A" CornerRadius="4"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="{Binding BarValue, Converter={StaticResource BarStar}}"/>
-                                                <ColumnDefinition Width="{Binding BarValue, Converter={StaticResource BarRest}}"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Background="{Binding Status, Converter={StaticResource StatusBrush}}" CornerRadius="4"/>
+                                        </StackPanel>
+                                        <Grid Height="8" Margin="0,10,0,0">
+                                            <Border Background="#24303A" CornerRadius="4"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="{Binding BarValue, Converter={StaticResource BarStar}}"/>
+                                                    <ColumnDefinition Width="{Binding BarValue, Converter={StaticResource BarRest}}"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Background="{Binding Status, Converter={StaticResource StatusBrush}}" CornerRadius="4"/>
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                    <TextBlock Text="{Binding RemainingText}" FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,8,0,0"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                        <TextBlock Text="{Binding RemainingText}" FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,8,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24"
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24"
                                 Visibility="{Binding HasShoes, Converter={StaticResource InvBoolVis}}">
-                        <Image Width="72" Height="72" HorizontalAlignment="Center"
+                            <Image Width="72" Height="72" HorizontalAlignment="Center"
                                Source="/Assets/logo.png"
                                RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock Text="从第一公里开始" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,16,0,0"/>
-                        <TextBlock Text="添加一双跑鞋，记下每次跑步的距离。快到建议寿命时，这里会提醒你更换。"
+                            <TextBlock Text="从第一公里开始" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,16,0,0"/>
+                            <TextBlock Text="添加一双跑鞋，记下每次跑步的距离。快到建议寿命时，这里会提醒你更换。"
                                    Foreground="{StaticResource MutedBrush}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    MaxWidth="320"
                                    Margin="0,8,0,0"/>
-                        <Button Content="添加跑鞋" Style="{StaticResource SportPrimary}" Width="140" Margin="0,18,0,0" Click="AddShoe_Click" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                            <Button Content="添加跑鞋" Style="{StaticResource SportPrimary}" Width="140" Margin="0,18,0,0" Click="AddShoe_Click" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <TextBlock Text="这个筛选下没有跑鞋"
+                        <TextBlock Text="这个筛选下没有跑鞋"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Foreground="{StaticResource MutedBrush}"
@@ -387,7 +387,7 @@
                             </WrapPanel>
                         </StackPanel>
 
-                        <Grid Grid.Row="1">
+                        <!--<Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
@@ -439,7 +439,7 @@
                                 <Button Content="修改记录" Style="{StaticResource SportGhost}" Margin="0,0,8,0" Click="EditRun_Click" IsEnabled="{Binding HasSelectedRun}"/>
                                 <Button Content="删除记录" Style="{StaticResource SportDanger}" Click="DeleteRun_Click" IsEnabled="{Binding HasSelectedRun}"/>
                             </StackPanel>
-                        </Grid>
+                        </Grid>-->
                     </Grid>
 
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="28"
